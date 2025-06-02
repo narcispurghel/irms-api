@@ -1,14 +1,13 @@
 package com.irms.api.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.irms.api.exception.impl.MissingAuthorizationElementException;
+import com.irms.api.exception.ApiExceptionFactory;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -19,7 +18,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
 
 @Entity
 @Table(name = "users")
@@ -58,8 +56,8 @@ public class User implements UserDetails {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<Authority> authorities = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<Authority> authorities = new HashSet<>();
 
     public User() {
         // Explicit no args constructor for JPA
@@ -68,21 +66,18 @@ public class User implements UserDetails {
     protected User(String password, String username) {
         this.password = password;
         this.username = username;
-	}
+    }
 
-	/**
+    /**
      * This method cannot return null because of
      * {@link org.springframework.security.core.userdetails.User} contract
+     * 
      * @return a collection of Authority
      */
     @Override
-    public List<Authority> getAuthorities() {
+    public Set<Authority> getAuthorities() {
         if (authorities == null) {
-            throw new MissingAuthorizationElementException(
-                    "Invalid authorities",
-                    "authorities should be a non-null and non-empty value",
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "user.authorities");
+            ApiExceptionFactory.internalServerError(null);
         }
         return authorities;
     }
@@ -99,11 +94,7 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         if (username == null) {
-            throw new MissingAuthorizationElementException(
-                    "Invalid username",
-                    "username should be a non-null and non-blank value",
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "user.username");
+            ApiExceptionFactory.internalServerError(null);
         }
         return username;
     }
@@ -192,7 +183,7 @@ public class User implements UserDetails {
         this.createdAt = createdAt;
     }
 
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = new HashSet<>(authorities);
     }
 }

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import com.irms.api.dto.request.RegisterRequest;
 import com.irms.api.dto.response.LoginResponse;
 import com.irms.api.entity.Authority;
 import com.irms.api.entity.User;
+import com.irms.api.exception.ApiExceptionFactory;
 import com.irms.api.repository.UserRepository;
 import com.irms.api.service.AuthService;
 import com.irms.api.service.JwtService;
@@ -56,7 +58,6 @@ public class AuthServiceImpl implements AuthService {
         user.setLastName(data.lastName());
         user.setPassword(passwordEncoder.encode(data.password()));
         user.getAuthorities().add(authority);
-        authority.setUser(user);
         user = userRepository.save(user);
         LOGGER.info("User created: {}", user);
         return ModelConverter.toUserDto(user);
@@ -67,7 +68,12 @@ public class AuthServiceImpl implements AuthService {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 data.email(),
                 data.password());
-        Authentication fullAuth = authenticationManager.authenticate(authToken);
+        Authentication fullAuth;
+        try {
+            fullAuth = authenticationManager.authenticate(authToken);
+        } catch (AuthenticationException ex) {
+            throw ApiExceptionFactory.unauthorized(ex.getMessage(), ex);
+        }
         User user = (User) fullAuth.getPrincipal();
         String jwtToken = jwtService.generateToken(user);
         List<String> roles = user.getAuthorities().stream()
