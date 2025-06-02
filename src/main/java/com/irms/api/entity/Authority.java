@@ -1,5 +1,7 @@
 package com.irms.api.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,8 +15,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,9 +31,8 @@ public class Authority implements GrantedAuthority {
     @Enumerated(value = EnumType.STRING)
     private RoleType role;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToMany(mappedBy = "authorities")
+    private List<User> users = new ArrayList<>();
 
     public Authority() {
         // Explicit no args constructor for JPA
@@ -55,10 +55,6 @@ public class Authority implements GrantedAuthority {
         return role.name();
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public void setId(UUID id) {
         this.id = id;
     }
@@ -67,7 +63,13 @@ public class Authority implements GrantedAuthority {
         this.role = role;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public List<User> getUsers() {
+        return users;
     }
+
+    public void setUsers(List<User> users) {
+        this.users = new ArrayList<>(users);
+    }
+
+    
 }
