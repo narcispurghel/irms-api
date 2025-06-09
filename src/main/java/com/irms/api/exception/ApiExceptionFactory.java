@@ -20,4 +20,8 @@ public final class ApiExceptionFactory {
     public static ResponseStatusException unauthorized(String reason) {
         return new ResponseStatusException(HttpStatus.UNAUTHORIZED, reason);
     }
+
+    public static ResponseStatusException notFound(String reason) {
+        return new ResponseStatusException(HttpStatus.NOT_FOUND, reason);
+    }
 }

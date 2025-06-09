@@ -16,8 +16,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ResourceCategory {
     @Id
-    @GeneratedValue
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(nullable = false)
+
+    @Column(nullable = false, unique = true)
     private String name;
 }

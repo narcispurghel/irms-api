@@ -3,6 +3,7 @@ package com.irms.api.constants;
 import java.util.List;
 
 public final class EndpointsConstants {
+    public static final String RESOURCE_ENDPOINT = "/api/v1/resource";
     public static final List<String> PUBLIC_API_ENDPOINTS = List.of(
             "/test",
             "/static/**",
@@ -25,7 +26,8 @@ public final class EndpointsConstants {
             "/swagger-ui/swagger-ui-standalone-preset.js",
             "/swagger-ui/swagger-ui.css",
             "/swagger-ui/swagger-initializer.js",
-            "/v3/api-docs/swagger-config");
+            "/v3/api-docs/swagger-config",
+            RESOURCE_ENDPOINT + "/**");
 
     private EndpointsConstants() {
 

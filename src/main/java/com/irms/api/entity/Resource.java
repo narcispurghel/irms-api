@@ -19,23 +19,31 @@ public class Resource {
     @Id
     @GeneratedValue
     private UUID id;
+
     @Column(nullable = false, unique = true)
     private Integer inventoryNumber;
+
     @Column(nullable = false)
     private Integer serialNumber;
+
     private String modelSpecification;
+
     @Column(nullable = false)
     private Date purchaseDate;
+
     @Column(nullable = false)
     private Double price;
+
     @Column(nullable = false)
     private String status;
+
     @Column(nullable = false)
     private String location;
+
     @Column(nullable = false)
     private String availability;
+
     @ManyToOne
     @JoinColumn(name = "resource_type_id", nullable = false)
     private ResourceType resourceType;
-
 }

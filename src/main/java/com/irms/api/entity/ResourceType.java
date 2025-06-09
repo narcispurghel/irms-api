@@ -18,9 +18,13 @@ public class ResourceType {
     @Id
     @GeneratedValue
     private UUID id;
-    @Column(nullable = false)
+
+    @Column(nullable = false, unique = true)
     private String name;
+
+    @Column(nullable = false)
     private String description;
+
     @ManyToOne
     @JoinColumn(name = "resource_category_id", nullable = false)
     private ResourceCategory resourceCategory;
