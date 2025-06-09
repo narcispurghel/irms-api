@@ -3,15 +3,8 @@ package com.irms.api.util;
 import java.util.List;
 
 import com.irms.api.dto.AuthorityDto;
-import com.irms.api.dto.ResourceCategoryDto;
-import com.irms.api.dto.ResourceDto;
-import com.irms.api.dto.ResourceTypeDto;
-import com.irms.api.dto.UserDto;
-import com.irms.api.entity.Authority;
-import com.irms.api.entity.Resource;
-import com.irms.api.entity.ResourceCategory;
-import com.irms.api.entity.ResourceType;
-import com.irms.api.entity.User;
+import com.irms.api.dto.entities.*;
+import com.irms.api.entity.*;
 
 public final class ModelConverter {
 
@@ -80,6 +73,20 @@ public final class ModelConverter {
                 resourceCategory.getName());
     }
 
+    public static EmployeeDto toEmployeeDto(Employee employee) {
+        if (employee == null) {
+            return null;
+        }
+        return EmployeeDto.builder()
+                .id(employee.getId())
+                .firstName(employee.getFirstName())
+                .secondName(employee.getSecondName())
+                .email(employee.getEmail())
+                .department(employee.getDepartment())
+                .role(employee.getRole())
+                .build();
+    }
+
     public static Resource toResource(ResourceDto dto) {
         if (dto == null) {
             return null;
@@ -118,6 +125,20 @@ public final class ModelConverter {
         category.setId(dto.id());
         category.setName(dto.name());
         return category;
+    }
+
+    public static Employee toEmployee(EmployeeDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        Employee employee = new Employee();
+        employee.setId(dto.id());
+        employee.setFirstName(dto.firstName());
+        employee.setSecondName(dto.secondName());
+        employee.setEmail(dto.email());
+        employee.setDepartment(dto.department());
+        employee.setRole(dto.role());
+        return employee;
     }
 
 }

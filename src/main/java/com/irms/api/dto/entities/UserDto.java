@@ -1,4 +1,6 @@
-package com.irms.api.dto;
+package com.irms.api.dto.entities;
+
+import com.irms.api.dto.AuthorityDto;
 
 import java.time.LocalDateTime;
 import java.util.List;

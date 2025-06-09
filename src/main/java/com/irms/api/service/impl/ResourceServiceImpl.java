@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.irms.api.dto.ResourceDto;
+import com.irms.api.dto.entities.ResourceDto;
 import com.irms.api.entity.Resource;
 import com.irms.api.entity.ResourceType;
 import com.irms.api.exception.ApiExceptionFactory;

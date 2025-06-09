@@ -1,5 +1,6 @@
 package com.irms.api.entity;
 
+import com.irms.api.enums.RoleType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -19,16 +20,21 @@ public class Employee {
     @Id
     @GeneratedValue
     private UUID id;
+
     @Column(nullable = false)
     private String firstName;
+
     @Column(nullable = false)
     private String secondName;
+
     @Email
     @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     private String department;
-    //TODO:
-//    private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 }
 

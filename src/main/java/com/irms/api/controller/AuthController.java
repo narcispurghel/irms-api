@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.irms.api.dto.UserDto;
+import com.irms.api.dto.entities.UserDto;
 import com.irms.api.dto.request.LoginRequest;
 import com.irms.api.dto.request.RegisterRequest;
 import com.irms.api.dto.response.LoginResponse;
