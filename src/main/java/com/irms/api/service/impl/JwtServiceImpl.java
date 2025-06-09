@@ -31,7 +31,6 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 
 import jakarta.transaction.Transactional;
-import lombok.var;
 
 @Service
 public class JwtServiceImpl implements JwtService {
@@ -107,7 +106,7 @@ public class JwtServiceImpl implements JwtService {
                     && Objects.nonNull(signedJWT.getHeader())
                     && Objects.nonNull(signedJWT.getPayload())
                     && Objects.nonNull(signedJWT.getJWTClaimsSet())
-                    && Objects.nonNull(signedJWT.getJWTClaimsSet().getClaim("role"))
+                    && Objects.nonNull(signedJWT.getJWTClaimsSet().getClaim("roles"))
                     && Objects.equals(ISSUER, signedJWT.getJWTClaimsSet().getIssuer())
                     && new Date().before(signedJWT.getJWTClaimsSet().getExpirationTime());
         } catch (JOSEException | ParseException e) {
