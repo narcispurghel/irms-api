@@ -1,4 +1,4 @@
-package com.irms.api.dto;
+package com.irms.api.dto.entities;
 
 import com.irms.api.entity.Employee;
 import com.irms.api.entity.Resource;

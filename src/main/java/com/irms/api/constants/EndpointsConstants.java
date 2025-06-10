@@ -4,6 +4,7 @@ import java.util.List;
 
 public final class EndpointsConstants {
     public static final String RESOURCE_ENDPOINT = "/api/v1/resource";
+    public static final String EMPLOYEE_ENDPOINT = "/api/v1/employee";
     public static final List<String> PUBLIC_API_ENDPOINTS = List.of(
             "/test",
             "/static/**",

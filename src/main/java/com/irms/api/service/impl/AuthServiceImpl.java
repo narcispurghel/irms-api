@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.irms.api.dto.UserDto;
+import com.irms.api.dto.entities.UserDto;
 import com.irms.api.dto.request.LoginRequest;
 import com.irms.api.dto.request.RegisterRequest;
 import com.irms.api.dto.response.LoginResponse;

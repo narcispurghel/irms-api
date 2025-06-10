@@ -2,7 +2,7 @@ package com.irms.api.service;
 
 import java.util.UUID;
 
-import com.irms.api.dto.ResourceDto;
+import com.irms.api.dto.entities.ResourceDto;
 
 public interface ResourceService {
     ResourceDto createResource(ResourceDto resourceDto);

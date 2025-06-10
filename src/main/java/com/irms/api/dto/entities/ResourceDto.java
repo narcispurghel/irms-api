@@ -1,4 +1,4 @@
-package com.irms.api.dto;
+package com.irms.api.dto.entities;
 
 import java.sql.Date;
 import java.util.UUID;
