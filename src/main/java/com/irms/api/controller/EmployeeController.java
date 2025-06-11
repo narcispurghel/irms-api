@@ -1,5 +1,6 @@
 package com.irms.api.controller;
 
+import com.irms.api.dto.MessageDto;
 import com.irms.api.dto.entities.EmployeeDto;
 import com.irms.api.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -24,14 +25,14 @@ public class EmployeeController {
 
     @PostMapping
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
-        return ResponseEntity.status(200)
+        return ResponseEntity.ok()
                 .contentType(APPLICATION_JSON)
                 .body(employeeService.createEmployee(employeeDto));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable(name = "id")UUID id) {
-        return ResponseEntity.status(200)
+        return ResponseEntity.ok()
                 .contentType(APPLICATION_JSON)
                 .body(employeeService.getEmployeeById(id));
     }
@@ -40,21 +41,22 @@ public class EmployeeController {
     public ResponseEntity<EmployeeDto> updateEmployee(
             @PathVariable(name = "id") UUID id,
             @RequestBody @Valid EmployeeDto employeeDto) {
-        return ResponseEntity.status(200)
+        return ResponseEntity.ok()
                 .contentType(APPLICATION_JSON)
                 .body(employeeService.updateEmployeeById(id, employeeDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployeeById(@PathVariable(name = "id") UUID id) {
-        return ResponseEntity.status(200)
+    public ResponseEntity<MessageDto> deleteEmployeeById(@PathVariable(name = "id") UUID id) {
+        String message = employeeService.deleteEmployeeById(id);
+        return ResponseEntity.ok()
                 .contentType(APPLICATION_JSON)
-                .build();
+                .body(new MessageDto(message));
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
-        return ResponseEntity.status(200)
+        return ResponseEntity.ok()
                 .contentType(APPLICATION_JSON)
                 .body(employeeService.getAllEmployees());
     }

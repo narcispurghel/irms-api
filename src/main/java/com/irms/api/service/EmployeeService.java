@@ -1,5 +1,6 @@
 package com.irms.api.service;
 
+import com.irms.api.dto.MessageDto;
 import com.irms.api.dto.entities.EmployeeDto;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface EmployeeService {
 
     EmployeeDto updateEmployeeById(UUID id, EmployeeDto updateEmployee);
 
-    void deleteEmployeeById(UUID id);
+    String deleteEmployeeById(UUID id);
 
     List<EmployeeDto> getAllEmployees();
 }

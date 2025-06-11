@@ -21,20 +21,21 @@ public class Employee {
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "second_name", nullable = false)
     private String secondName;
 
     @Email
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "department", nullable = false)
     private String department;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private RoleType role;
 }
 

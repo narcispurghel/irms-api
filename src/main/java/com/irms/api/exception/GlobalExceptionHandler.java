@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = { AuthenticationException.class })
+    @ExceptionHandler(value = {AuthenticationException.class })
     public ResponseEntity<ApiErrorResponse> handleApiExceptions(AuthenticationException e) {
         ApiErrorResponse response = new ApiErrorResponse(
                 "Bad request",

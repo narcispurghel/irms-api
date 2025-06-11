@@ -1,6 +1,7 @@
 package com.irms.api.util;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.irms.api.dto.AuthorityDto;
 import com.irms.api.dto.entities.*;
@@ -87,6 +88,21 @@ public final class ModelConverter {
                 .build();
     }
 
+    public static MaintenanceLogDto toMaintenanceLogDto(MaintenanceLog maintenanceLog) {
+        if (maintenanceLog == null) {
+            return  null;
+        }
+        return MaintenanceLogDto.builder()
+                .id(maintenanceLog.getId())
+                .serviceStartDate(maintenanceLog.getServiceStartDate())
+                .serviceEndDate(maintenanceLog.getServiceEndDate())
+                .problemDescription(maintenanceLog.getProblemDescription())
+                .repairDescription(maintenanceLog.getRepairDescription())
+                .cost(maintenanceLog.getCost())
+                .resourceId(maintenanceLog.getId())
+                .build();
+    }
+
     public static Resource toResource(ResourceDto dto) {
         if (dto == null) {
             return null;
@@ -102,6 +118,13 @@ public final class ModelConverter {
         resource.setLocation(dto.location());
         resource.setAvailability(dto.availability());
         resource.setResourceType(toResourceType(dto.resourceType()));
+        return resource;
+    }
+
+    public static Resource toResourceId(UUID id) {
+        if (id == null) return null;
+        Resource resource = new Resource();
+        resource.setId(id);
         return resource;
     }
 
@@ -139,6 +162,21 @@ public final class ModelConverter {
         employee.setDepartment(dto.department());
         employee.setRole(dto.role());
         return employee;
+    }
+
+    public static MaintenanceLog toMaintenanceLog(MaintenanceLogDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        MaintenanceLog maintenance = new MaintenanceLog();
+        maintenance.setId(dto.id());
+        maintenance.setServiceStartDate(dto.serviceStartDate());
+        maintenance.setServiceEndDate(dto.serviceEndDate());
+        maintenance.setProblemDescription(dto.problemDescription());
+        maintenance.setRepairDescription(dto.repairDescription());
+        maintenance.setCost(dto.cost());
+        maintenance.setResource(toResourceId(dto.resourceId()));
+        return  maintenance;
     }
 
 }

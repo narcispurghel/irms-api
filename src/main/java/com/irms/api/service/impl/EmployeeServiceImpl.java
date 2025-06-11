@@ -6,6 +6,7 @@ import com.irms.api.repository.EmployeeRepository;
 import com.irms.api.service.EmployeeService;
 import com.irms.api.util.ModelConverter;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 import static com.irms.api.exception.ApiExceptionFactory.notFound;
 
+@Slf4j
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
@@ -21,7 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
-
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
@@ -49,11 +50,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployeeById(UUID id) {
+    public String deleteEmployeeById(UUID id) {
         if (!employeeRepository.existsById(id)) {
             throw notFound("Employee with id " + id + " not found");
         }
         employeeRepository.deleteById(id);
+        return "Employee with ID " + id + " deleted successfully";
     }
 
     @Override
@@ -66,6 +68,5 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .map(ModelConverter::toEmployeeDto)
                 .toList();
     }
-
 
 }
