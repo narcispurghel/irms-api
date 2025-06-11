@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue
     private UUID id;
 
     @Column(name = "first_name", nullable = false)

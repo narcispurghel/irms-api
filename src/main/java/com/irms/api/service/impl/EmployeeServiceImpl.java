@@ -24,7 +24,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
         Objects.requireNonNull(employeeDto, "Employee dto can not be null!");
@@ -69,6 +68,5 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .map(ModelConverter::toEmployeeDto)
                 .toList();
     }
-
 
 }
