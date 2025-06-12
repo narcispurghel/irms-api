@@ -53,7 +53,7 @@ public final class ModelConverter {
                 .build();
     }
 
-    private static ResourceTypeDto toResourceTypeDto(ResourceType resourceType) {
+    public static ResourceTypeDto toResourceTypeDto(ResourceType resourceType) {
         if (resourceType == null) {
             return null;
         }
@@ -64,8 +64,21 @@ public final class ModelConverter {
                 resourceType.getDescription(),
                 resourceCategoryDto);
     }
+    
+    public static ResourceType toResource(ResourceTypeDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        ResourceCategory resourceCategory = toResourceCategory(dto.resourceCategory());
+        ResourceType resourceType = new ResourceType();
+        resourceType.setId(dto.id());
+        resourceType.setName(dto.name());
+        resourceType.setDescription(dto.description());
+        resourceType.setResourceCategory(resourceCategory);
+        return resourceType;
+    }
 
-    private static ResourceCategoryDto toResourceCategoryDto(ResourceCategory resourceCategory) {
+    public static ResourceCategoryDto toResourceCategoryDto(ResourceCategory resourceCategory) {
         if (resourceCategory == null) {
             return null;
         }
