@@ -21,31 +21,31 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping(value = "/api/v1/auth", produces = APPLICATION_JSON_VALUE)
 public class AuthController {
-        private final AuthService authService;
+    private final AuthService authService;
 
-        public AuthController(AuthService authService) {
-                this.authService = authService;
-        }
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
-        @PostMapping("/register")
-        public ResponseEntity<UserDto> register(
-                        @RequestBody RegisterRequest requestBody) {
-                return ResponseEntity.status(HttpStatus.CREATED)
-                                .contentType(APPLICATION_JSON)
-                                .body(authService.registerUser(requestBody));
-        }
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> register(
+            @RequestBody RegisterRequest requestBody) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .contentType(APPLICATION_JSON)
+                .body(authService.registerUser(requestBody));
+    }
 
-        @PostMapping("/login")
-        public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest requestBody) {
-                return ResponseEntity.status(200)
-                                .contentType(APPLICATION_JSON)
-                                .body(authService.authenticate(requestBody));
-        }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest requestBody) {
+        return ResponseEntity.status(200)
+                .contentType(APPLICATION_JSON)
+                .body(authService.authenticate(requestBody));
+    }
 
-        @PostMapping("/logout")
-        public ResponseEntity<String> logout(HttpServletResponse response) {
-                return ResponseEntity.status(200)
-                                .contentType(APPLICATION_JSON)
-                                .body(authService.logout(response));
-        }
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response) {
+        return ResponseEntity.status(200)
+                .contentType(APPLICATION_JSON)
+                .body(authService.logout(response));
+    }
 }
