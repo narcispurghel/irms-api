@@ -1,24 +1,64 @@
 package com.irms.api.dto.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.irms.api.entity.Employee;
 import com.irms.api.entity.Resource;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
-public class AllocationDto {
-    private UUID id;
-    @NotNull
-    @PastOrPresent(message = "Allocation date cannot be in the future")
-    private LocalDate allocationDate;
-    @NotNull
-    @FutureOrPresent(message = "Allocation date cannot be in the past")
-    private LocalDate deallocationDate;
-    private Resource resource;
-    private Employee employee;
+public record AllocationDto(
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY) UUID id,
+        @NotNull(message = "Allocation date is required") LocalDate allocationDate,
+        @NotNull(message = "Deallocation date is required") LocalDate deallocationDate,
+        @NotNull Resource resourceId,
+        @NotNull Employee employeeId) {
+
+    public static Builder builder() {return new Builder();}
+
+    public static class Builder {
+        private UUID id;
+        private LocalDate allocationDate;
+        private LocalDate deallocationDate;
+        private Resource resourceId;
+        private Employee employeeId;
+
+        public Builder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder allocationDate(LocalDate allocationDate) {
+            this.allocationDate = allocationDate;
+            return this;
+        }
+
+        public Builder deallocationDate(LocalDate deallocationDate) {
+            this.deallocationDate = deallocationDate;
+            return this;
+        }
+
+        public Builder resourceId(Resource resourceId) {
+            this.resourceId = resourceId;
+            return this;
+        }
+
+        public Builder employeeId(Employee employeeId) {
+            this.employeeId = employeeId;
+            return this;
+        }
+
+        public AllocationDto build() {
+            return new AllocationDto(
+                    id,
+                    allocationDate,
+                    deallocationDate,
+                    resourceId,
+                    employeeId);
+        }
+
+    }
+
 }

@@ -28,7 +28,7 @@ public record EmployeeDto(
         private String department;
         private RoleType role;
 
-        public EmployeeDto.Builder id(UUID id) {
+        public Builder id(UUID id) {
             this.id = id;
             return this;
         }

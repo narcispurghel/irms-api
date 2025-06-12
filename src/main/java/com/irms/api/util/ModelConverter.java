@@ -103,6 +103,20 @@ public final class ModelConverter {
                 .build();
     }
 
+    public static AllocationDto toAllocationDto(Allocation allocation) {
+        if (allocation == null) {
+            return null;
+        }
+
+        return AllocationDto.builder()
+                .id(allocation.getId())
+                .allocationDate(allocation.getAllocationDate())
+                .deallocationDate(allocation.getDeallocationDate())
+                .resourceId(allocation.getResource())
+                .employeeId(allocation.getEmployee())
+                .build();
+    }
+
     public static Resource toResource(ResourceDto dto) {
         if (dto == null) {
             return null;
@@ -164,6 +178,13 @@ public final class ModelConverter {
         return employee;
     }
 
+    public static Employee toEmployeeId(UUID id) {
+        if (id == null) {return null;}
+        Employee employee = new Employee();
+        employee.setId(id);
+        return employee;
+    }
+
     public static MaintenanceLog toMaintenanceLog(MaintenanceLogDto dto) {
         if (dto == null) {
             return null;
@@ -177,6 +198,20 @@ public final class ModelConverter {
         maintenance.setCost(dto.cost());
         maintenance.setResource(toResourceId(dto.resourceId()));
         return  maintenance;
+    }
+
+    public static Allocation toAllocation(AllocationDto dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        Allocation allocation = new Allocation();
+        allocation.setId(dto.id());
+        allocation.setAllocationDate(dto.allocationDate());
+        allocation.setDeallocationDate(dto.deallocationDate());
+        allocation.setResource(toResourceId(dto.id()));
+        allocation.setEmployee(toEmployeeId(dto.id()));
+        return allocation;
     }
 
 }

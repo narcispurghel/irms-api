@@ -34,3 +34,6 @@ build/
 
 ### Database credentiale ###
 src/main/resources/application-dev.properties
+
+### Todo ###
+src/main/resources/todo-list
